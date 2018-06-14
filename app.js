@@ -61,9 +61,7 @@ app.post('/register',function(req,res){
 
   console.log(users)
 
-  var hour = 3600000
-  req.session.cookie.expires = new Date(Date.now() + hour)
-  req.session.cookie.maxAge = hour
+
 
   res.redirect('/login')
 })
@@ -74,15 +72,24 @@ app.post('/login',function(req,res){
   let password = req.body.password
 
   currentUser = users.find(function(user){
-    return user.username == username && user.password == password
+    if (user.username == username && user.password == password) {
+      return user.username
+    }else {
+      res.redirect('/login-error')
+    }
   })
+  var hour = 3600000
+  req.session.cookie.expires = new Date(Date.now() + hour)
+  req.session.cookie.maxAge = hour
 
   console.log(currentUser)
-  res.render('index')
+  res.redirect('index')
 })
 
 
-
+app.get('/login-error',function(req,res){
+  res.render('login-error')
+})
 
 app.post('/logout',function(req,res){
   req.session.destroy()
