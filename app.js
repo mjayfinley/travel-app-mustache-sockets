@@ -74,12 +74,25 @@ app.post('/login',function(req,res){
   let password = req.body.password
 
   currentUser = users.find(function(user){
-    return user.username == username
+    return user.username == username && user.password == password
   })
 
   console.log(currentUser)
   res.render('index')
 })
+
+
+
+
+app.post('/logout',function(req,res){
+  req.session.destroy()
+
+  currentUser = {}
+
+  res.redirect('/login')
+  console.log(currentUser)
+})
+
 
 app.get('/index',function(req,res){
   res.render('index')
@@ -110,9 +123,11 @@ app.post('/trips',function(req,res){
   let tripId = guid()
 
   let title = req.body.title
+  let leave = req.body.leave
+  let comeBack = req.body.comeBack
   let imageURL = req.body.imageURL
 
-  let newTrip = new Trip(tripId,title,imageURL)
+  let newTrip = new Trip(tripId,title,leave,comeBack,imageURL)
 
   currentUser.trips.push(newTrip)
 

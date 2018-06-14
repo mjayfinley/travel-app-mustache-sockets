@@ -10,8 +10,10 @@
 <!-- starting of the loop -->
   {{#tripListing}}
 
-    <div>{{tripTitle}}</div>
-    <img src='{{tripImageURL}}' width="200" height="200" />
+    <div>{{title}}</div>
+    <img src='{{imageURL}}' width="200" height="200" />
+    <div>Departure: {{departureDate}}</div>
+    <div>Return: {{returnDate}}</div>
 
 <!-- creating forms so we can submit tripId for deletion -->
   <form action='/deleteTrip' method='post'>
@@ -22,6 +24,11 @@
   {{/tripListing}}
 
   <a href="/index">Enter New Trip</a>
+
+  <form action='/logout' method='post'>
+    <input type='submit' value='Logout'/>
+  </form>
+
 </body>
 
 </html>

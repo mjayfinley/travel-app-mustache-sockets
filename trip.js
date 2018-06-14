@@ -1,8 +1,10 @@
 class Trip {
 
-  constructor(tripId,title,imageURL) {
+  constructor(tripId,title,departureDate,returnDate,imageURL) {
     this.tripId = tripId
     this.title = title
+    this.departureDate = departureDate
+    this.returnDate = returnDate
     this.imageURL = imageURL
   }
 }
