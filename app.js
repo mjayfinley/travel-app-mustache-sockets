@@ -1,6 +1,24 @@
 const express = require('express')
 const app = express()
 const mustacheExpress = require('mustache-express')
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
+
+
+io.on('connection',function(socket){
+  console.log("user is connected!")
+
+  socket.on('chat',function(message) {
+    console.log(message)
+    io.emit('chat', {username: currentUser.username, message : message})
+
+
+  })
+})
+
+
+app.use(express.static('public'))
+
 
 // npm install express-session --save
 var session = require('express-session')
@@ -154,4 +172,4 @@ function guid() {
 }
 
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+http.listen(3000, () => console.log('Example app listening on port 3000!'))
